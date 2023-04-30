@@ -5,6 +5,8 @@ import Form from 'react-bootstrap/Form';
 import Row from 'react-bootstrap/Row';
 import Button from 'react-bootstrap/Button';
 
+
+
 export default class MyForm extends React.Component {
 
 
@@ -17,25 +19,26 @@ export default class MyForm extends React.Component {
           >
           <Form.Group 
             as={Row} 
-            className="mb-10" 
             controlId="exampleForm.ControlInput1">
-            <Form.Label 
-              className="formLabel" 
-              column sm="1"
-              >Email address</Form.Label>
-            <Col sm="10">
-              <Form.Control 
-                className="formInput" 
-                type="text" 
-                placeholder="enter city name here" 
-                onChange={this.props.handlerFormUpdate}
-                />
-            </Col>
-            <Col>
-              <Button className="formButton" column sm="1" variant="primary" type="submit">
-                Explore!
-              </Button>
-            </Col>
+            <Row className="formRow">
+              <Col xxs="5" xs="7" sm="8" md='9' lg='9'>
+                <Form.Control 
+                  className="formInput" 
+                  type="text" 
+                  placeholder="enter city name here" 
+                  onChange={this.props.handlerFormUpdate}
+                  />
+              </Col>
+              <Col className="buttonColumn">
+                <Button 
+                  className="formButton" 
+                  variant="primary" 
+                  type="submit"
+                  >
+                  Explore!
+                </Button>
+              </Col>
+            </Row>
 
           </Form.Group>
         </Form>

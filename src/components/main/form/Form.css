@@ -1,7 +1,22 @@
 .formContainer {
-  padding: 1em;
+  margin:1em 0 1em 0;
 }
 
 .formFull {
+  /* outline:2px solid red; */
   
+}
+
+.formRow {
+  /* display:flex;
+  flex-direction:row;
+  flex-wrap:nowrap;
+  justify-content:space-between; */
+  /* outline:2px solid black; */
+}
+
+.buttonColumn {
+}
+
+.formButton {
 }
