@@ -16,12 +16,19 @@ export default class Main extends React.Component {
     constructor(props){
       super(props);
       this.state = {
-        searchQuery:'apple',
+        searchQuery:'',
         response:{},
         mapQuery:'',
         showResults:false,
+        showError:false,
         errorStatus:null};
     };
+
+    handlerClearError = () => {
+      this.setState(prevState => ({...prevState,
+                                    showError:false,
+                                    errorStatus:null}))
+    }
 
     handlerFormUpdate = (e) => {
       e.preventDefault();
@@ -54,11 +61,17 @@ export default class Main extends React.Component {
                       response:filteredResponseData,
                       showResults:true,
                       mapQuery:IconUrl,
+                      showError:false,
                       errorStatus:null
                       }));
 
       } catch (error) {
-        this.setState(prevState => ({...prevState,errorStatus:error.response}));
+        this.setState(prevState => ({...prevState,
+                                      showResults:false,
+                                      response:{},
+                                      mapQuery:"",
+                                      showError:true,
+                                      errorStatus:error.response}));
         // console.log(error.response.value);
       };
     };
@@ -87,10 +100,12 @@ export default class Main extends React.Component {
                   />:
                   null
                 }
-                {this.state.error?
+                {this.state.showError?
                   <Error 
-                  errorStatus={this.state.error} />:
-                  null          }                        
+                    errorStatus={this.state.errorStatus} 
+                    handlerClearError={this.handlerClearError}
+                    />:
+                    null}                        
               </Col>
             </Row>
           </Container>
