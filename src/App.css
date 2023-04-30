@@ -1,0 +1,18 @@
+:root {
+  --blue:#00BBF9;
+  --blue-red:#F93E00;
+  --green:#00F5D4;
+  --green-red:#F50021;
+  --yellow:#FEE440;
+  --yellow-blue:#405AFE;
+  --pink:#F15BB5;
+  --pink-green:#5BF197;
+  --purple:#9B5DE5;
+  --purple-green:#AAE55D;
+  background-color:var(--yellow);
+}
+
+
+.appContainer {
+  position:relative;
+}
