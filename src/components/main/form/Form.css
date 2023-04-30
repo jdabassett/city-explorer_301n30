@@ -1,22 +1,21 @@
-.formContainer {
-  margin:1em 0 1em 0;
-}
+
 
 .formFull {
   /* outline:2px solid red; */
+  margin:1em 0 1em 0;
   
 }
 
-.formRow {
-  /* display:flex;
-  flex-direction:row;
-  flex-wrap:nowrap;
-  justify-content:space-between; */
-  /* outline:2px solid black; */
+.formGroup {
+
 }
 
-.buttonColumn {
+.formControl {
+  margin-bottom:0.5em;
 }
+
 
 .formButton {
+  /* margin-top:1em;
+  outline:2px solid black; */
 }
