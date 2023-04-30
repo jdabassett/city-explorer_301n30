@@ -3,6 +3,7 @@ import React from 'react'
 import MyForm from './form/Form.js';
 import axios from 'axios';
 import Map from './map/Map.js';
+import Error from './error/Error.js'
 
 const ACCESS_TOKEN = process.env.REACT_APP_LIQKEY;
 
@@ -14,8 +15,9 @@ export default class Main extends React.Component {
       this.state = {
         searchQuery:'apple',
         response:{},
-        showResults:true,
-        error:null};
+        mapQuery:'',
+        showResults:false,
+        errorStatus:null};
     };
 
     handlerFormUpdate = (e) => {
@@ -41,21 +43,27 @@ export default class Main extends React.Component {
         //filter response to select the most 'important' response
         let filteredResponseData = responseData.data.sort((a,b)=>b.importance-a.importance)[0]
 
+        let IconUrl = `https://maps.locationiq.com/v3/staticmap?key=${ACCESS_TOKEN}&center=${filteredResponseData.lat},${filteredResponseData.lon}&size=600x600&zoom=12&path=fillcolor:%2390EE90|weight:2|color:blue|17.452945,78.380055|17.452765,78.382026|17.452020,78.381375|17.452045,78.380846|17.452945,78.380055`
+
         //update state with most important city
         this.setState(prevState=> ({...prevState,
+                      searchQuery:"",
                       response:filteredResponseData,
-                      showResults:true
+                      showResults:true,
+                      mapQuery:IconUrl,
+                      errorStatus:null
                       }));
 
       } catch (error) {
-        this.setState(prevState => ({...prevState,error:error.response.status}));
-        console.log(error.response.value);
+        this.setState(prevState => ({...prevState,errorStatus:error.response}));
+        // console.log(error.response.value);
       };
     };
 
 
   render () {
-    console.log(this.state);
+    console.log(this.state.errorStatus)
+    // console.log(typeof(this.state.error));
     return (
       <>
         <div className="mainContainer">
@@ -70,6 +78,10 @@ export default class Main extends React.Component {
             />:
             null
           }
+          {this.state.error?
+            <Error 
+            errorStatus={this.state.error} />:
+            null          }
         </div>
       </>
     );
