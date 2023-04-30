@@ -21,7 +21,7 @@ export default class Main extends React.Component {
         mapQuery:'',
         showResults:false,
         showError:false,
-        errorStatus:null};
+        errorStatus:{}};
     };
 
     handlerClearError = () => {
@@ -78,13 +78,13 @@ export default class Main extends React.Component {
 
 
   render () {
-    console.log(this.state.errorStatus)
+    // console.log(this.state.errorStatus)
     // console.log(typeof(this.state.error));
     return (
         <div className="mainContainer">
           <Container>
             <Row className="mainRow">
-              <Col xs="11" sm="10" md="9" lg="8">
+              <Col xs="11" sm="10" md="9" lg="8" className="mainColumn">
                 <MyForm 
                   searchQuery={this.state.searchQuery}
                   handlerFormUpdate={this.handlerFormUpdate}
@@ -93,7 +93,7 @@ export default class Main extends React.Component {
               </Col>
             </Row>
             <Row className="mainRow">
-              <Col xs="11" sm="10" md="9" lg="8" className="mapColumn">
+              <Col xs="11" sm="10" md="9" lg="8" className="mainColumn">
                 {this.state.showResults?
                   <Map
                     response={this.state.response}

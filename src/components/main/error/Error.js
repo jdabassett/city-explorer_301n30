@@ -11,8 +11,8 @@ export default class Error extends React.Component {
       case (500< errorStatusCode && errorStatusCode< 600): return <p>Oh this is a rare error. The server recieved our request and refuses to share data with us. At least the problem isn't on our end of things.</p>;
       default: return null;
     }}
-    console.log(this.props.errorStatus.status);
-    console.log(typeof(errorStatusCode))
+    // console.log(this.props.errorStatus.status);
+    // console.log(typeof(errorStatusCode))
     return (
         <div className="errorContainer">
           <Alert 
