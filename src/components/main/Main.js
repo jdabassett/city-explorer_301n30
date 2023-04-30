@@ -4,6 +4,9 @@ import MyForm from './form/Form.js';
 import axios from 'axios';
 import Map from './map/Map.js';
 import Error from './error/Error.js'
+import Container from 'react-bootstrap/Container';
+import Row from 'react-bootstrap/Row';
+import Col from 'react-bootstrap/Col';
 
 const ACCESS_TOKEN = process.env.REACT_APP_LIQKEY;
 
@@ -65,25 +68,33 @@ export default class Main extends React.Component {
     console.log(this.state.errorStatus)
     // console.log(typeof(this.state.error));
     return (
-      <>
         <div className="mainContainer">
-          <MyForm 
-            searchQuery={this.state.searchQuery}
-            handlerFormUpdate={this.handlerFormUpdate}
-            handlerSubmit={this.handlerSubmit}
-            />
-          {this.state.showResults?
-            <Map
-              response={this.state.response}
-            />:
-            null
-          }
-          {this.state.error?
-            <Error 
-            errorStatus={this.state.error} />:
-            null          }
+          <Container>
+            <Row className="mainRow">
+              <Col xs="11" sm="10" md="9" lg="8">
+                <MyForm 
+                  searchQuery={this.state.searchQuery}
+                  handlerFormUpdate={this.handlerFormUpdate}
+                  handlerSubmit={this.handlerSubmit}
+                  />              
+              </Col>
+            </Row>
+            <Row className="mainRow">
+              <Col xs="11" sm="10" md="9" lg="8" className="mapColumn">
+                {this.state.showResults?
+                  <Map
+                    response={this.state.response}
+                  />:
+                  null
+                }
+                {this.state.error?
+                  <Error 
+                  errorStatus={this.state.error} />:
+                  null          }                        
+              </Col>
+            </Row>
+          </Container>
         </div>
-      </>
     );
   };
 };
