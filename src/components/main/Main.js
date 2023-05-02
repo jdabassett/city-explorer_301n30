@@ -46,6 +46,7 @@ export default class Main extends React.Component {
           url:`https://us1.locationiq.com/v1/search?key=${ACCESS_TOKEN}&q=${this.state.searchQuery}&format=json`,
           method:'GET'
         };
+        
 
         //fetch data
         let responseData = await axios(requestData);
