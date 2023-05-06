@@ -10,8 +10,6 @@ import Col from 'react-bootstrap/Col';
 
 const ACCESS_TOKEN = process.env.REACT_APP_LIQKEY;
 
-
-
 export default class Main extends React.Component {
     constructor(props){
       super(props);
