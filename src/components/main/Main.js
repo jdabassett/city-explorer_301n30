@@ -7,6 +7,9 @@ import Error from './error/Error.js'
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
+import Weather from './weather/Weather.js';
+import defaultLocation from '../../data_location.json'
+import defaultWeather from '../../data_weather.json'
 
 const ACCESS_TOKEN = process.env.REACT_APP_LIQKEY;
 
@@ -67,7 +70,7 @@ export default class Main extends React.Component {
                       mapQuery:IconUrl,
                       showError:false,
                       errorStatus:null,
-                      responseWeather:responseDataWeather.data||[]
+                      responseWeather:responseDataWeather.data
                       }));
 
       } catch (error) {
@@ -85,6 +88,8 @@ export default class Main extends React.Component {
   render () {
     // console.log(this.state.errorStatus)
     // console.log(typeof(this.state.error));
+    console.log(this.state.responseWeather);
+    console.log(this.state.responseLocation);
     return (
         <div className="mainContainer">
           <Container>
@@ -100,9 +105,10 @@ export default class Main extends React.Component {
             <Row className="mainRow">
               <Col xs="11" sm="10" md="9" lg="8" className="mainColumn">
                 {this.state.showResults?
-                  <Map
-                    responseLocation={this.state.responseLocation}
-                  />:
+                  <>
+                    <Weather responseWeather={this.state.responseWeather}/>
+                    <Map responseLocation={this.state.responseLocation}/>
+                  </>:
                   null
                 }
                 {this.state.showError?

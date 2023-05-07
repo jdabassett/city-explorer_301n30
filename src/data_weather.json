@@ -1,0 +1,16 @@
+{
+  "data": [
+      {
+          "name": "2021-03-23",
+          "description": "Low of 5, high of 9.8 with broken clouds"
+      },
+      {
+          "name": "2021-03-24",
+          "description": "Low of 4.7, high of 8.6 with sun"
+      },
+      {
+          "name": "2021-03-25",
+          "description": "Low of 5.2, high of 9.7 with light rain"
+      }
+  ]
+}

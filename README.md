@@ -28,6 +28,19 @@ This website will allow users to search for US cities and receive a map icon of 
 [Lacey Washington](https://github.com/laceywash31700)
  * Made the wireframe with me for Lab06
 
+![Sunny](./public/images/sunny-image_max-saeling.png)
+Photo by <a href="https://unsplash.com/es/@maxsaeling?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Max Saeling</a> 
+
+![Partially-Cloudy](./public/images/partly-cloudy-image_sean-oulashin.png)
+Photo by <a href="https://unsplash.com/pt-br/@oulashin?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Sean Oulashin</a>
+  
+
+![Cloudy](./public/images/cloudy-image_jerome.png)
+Photo by <a href="https://unsplash.com/@jrmswny?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Jerome</a>
+
+![Rainy](./public/images/rainy-image_daoudi-aissa.png)
+Photo by <a href="https://unsplash.com/@dannyeve?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Daoudi Aissa</a>
+  
 
 
 ## Development Estimates
