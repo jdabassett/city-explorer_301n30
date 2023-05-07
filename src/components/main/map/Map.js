@@ -1,4 +1,4 @@
-import './Map.css'
+
 import React from 'react'
 import Card from 'react-bootstrap/Card';
 

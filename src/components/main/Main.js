@@ -8,8 +8,8 @@ import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Weather from './weather/Weather.js';
-import defaultLocation from '../../data_location.json'
-import defaultWeather from '../../data_weather.json'
+// import defaultLocation from '../../data_location.json'
+// import defaultWeather from '../../data_weather.json'
 
 const ACCESS_TOKEN = process.env.REACT_APP_LIQKEY;
 
