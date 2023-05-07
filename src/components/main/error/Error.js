@@ -1,5 +1,5 @@
-import './Error.css'
-import React from 'react'
+import './Error.css';
+import React from 'react';
 import Alert from 'react-bootstrap/Alert';
 
 export default class Error extends React.Component {
