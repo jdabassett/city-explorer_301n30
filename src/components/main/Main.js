@@ -8,10 +8,12 @@ import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Weather from './weather/Weather.js';
-// import defaultLocation from '../../data_location.json'
-// import defaultWeather from '../../data_weather.json'
 
-const ACCESS_TOKEN = process.env.REACT_APP_LIQKEY;
+
+//import global variables
+const LIQKEY_TOKEN = process.env.REACT_APP_LIQKEY;
+const WEATHERKEY_TOKEN = process.env.REACT_APP_WEATHERKEY;
+const SERVER = process.env.REACT_APP_SERVER;
 
 export default class Main extends React.Component {
     constructor(props){
@@ -23,7 +25,8 @@ export default class Main extends React.Component {
         showResults:false,
         showError:false,
         errorStatus:{},
-        responseWeather:[]
+        responseWeather:[],
+        displayCelsius:true
       };
     };
 
@@ -46,18 +49,18 @@ export default class Main extends React.Component {
       try {
         //fetch data from locationIQ
         let requestData0 = {
-          url:`https://us1.locationiq.com/v1/search?key=${ACCESS_TOKEN}&q=${this.state.searchQuery}&format=json`,
+          url:`https://us1.locationiq.com/v1/search?key=${LIQKEY_TOKEN}&q=${this.state.searchQuery}&format=json`,
           method:'GET'};
         let responseLocation = await axios(requestData0);
 
         //filter response to select the most 'important' response
         let filteredResponseLocation = responseLocation.data.sort((a,b)=>b.importance-a.importance)[0]
-        let IconUrl = `https://maps.locationiq.com/v3/staticmap?key=${ACCESS_TOKEN}&center=${filteredResponseLocation.lat},${filteredResponseLocation.lon}&size=600x600&zoom=12&path=fillcolor:%2390EE90|weight:2|color:blue|17.452945,78.380055|17.452765,78.382026|17.452020,78.381375|17.452045,78.380846|17.452945,78.380055`
+        let IconUrl = `https://maps.locationiq.com/v3/staticmap?key=${LIQKEY_TOKEN}&center=${filteredResponseLocation.lat},${filteredResponseLocation.lon}&size=600x600&zoom=12&path=fillcolor:%2390EE90|weight:2|color:blue|17.452945,78.380055|17.452765,78.382026|17.452020,78.381375|17.452045,78.380846|17.452945,78.380055`
 
         // fetch weather data from my server
         let cityName = filteredResponseLocation.display_name.split(",")[0].toLowerCase();
         let requestData1 = {
-          url: `http://localhost:3001/weather?lat=${filteredResponseLocation.lat}&lon=${filteredResponseLocation.lon}&searchQuery=${cityName}`,
+          url: `${SERVER}/weather?lat=${filteredResponseLocation.lat}&lon=${filteredResponseLocation.lon}&searchQuery=${cityName}`,
           method:'GET'}
         let responseDataWeather = await axios(requestData1);
 
@@ -70,7 +73,7 @@ export default class Main extends React.Component {
                       mapQuery:IconUrl,
                       showError:false,
                       errorStatus:null,
-                      responseWeather:responseDataWeather.data
+                      responseWeather:responseDataWeather.data || []
                       }));
 
       } catch (error) {
@@ -86,10 +89,10 @@ export default class Main extends React.Component {
 
 
   render () {
-    // console.log(this.state.errorStatus)
-    // console.log(typeof(this.state.error));
-    console.log(this.state.responseWeather);
-    console.log(this.state.responseLocation);
+    console.log(this.state.errorStatus)
+    console.log(this.state.showError);
+    // console.log(this.state.responseWeather);
+    // console.log(this.state.responseLocation);
     return (
         <div className="mainContainer">
           <Container>
@@ -99,6 +102,7 @@ export default class Main extends React.Component {
                   searchQuery={this.state.searchQuery}
                   handlerFormUpdate={this.handlerFormUpdate}
                   handlerSubmit={this.handlerSubmit}
+                  displayCelsius={this.displayCelsius}
                   />              
               </Col>
             </Row>

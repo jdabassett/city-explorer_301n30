@@ -18,7 +18,7 @@ export default class Weather extends React.Component {
       return <Col key={idx}>
                 <WeatherCard 
                   name={item.name}
-                  description={item.description}
+                  description={item.description_F}
                   key={idx}
                   />
               </Col>});
