@@ -8,32 +8,44 @@ import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Weather from './weather/Weather.js';
+import Movies from './movies/Movies.js';
+
+// import moviesData from '../../data_movies.json';
+// import weatherData from '../../data_weather.json';
+// import locationData from '../../data_location.json';
 
 
 //import global variables
 const LIQKEY_TOKEN = process.env.REACT_APP_LIQKEY;
-const WEATHERKEY_TOKEN = process.env.REACT_APP_WEATHERKEY;
 const SERVER = process.env.REACT_APP_SERVER;
 
 export default class Main extends React.Component {
     constructor(props){
       super(props);
       this.state = {
-        searchQuery:'',
-        responseLocation:{},
+        previousSearchQuery:'',
         mapQuery:'',
+        searchQuery:'',
+
         showResults:false,
-        showError:false,
-        errorStatus:{},
+        responseLocation:{},
         responseWeather:[],
-        displayCelsius:true
+        responseMovies:[],
+
+        errorLocationIQ:null,
+        errorWeather:null,
+        errorMovies:null
       };
     };
 
-    handlerClearError = () => {
-      this.setState(prevState => ({...prevState,
-                                    showError:false,
-                                    errorStatus:null}))
+    handlerClearError = (type) => {
+      console.log(type);
+      switch(type){
+        case 'locationIQ': this.setState(prevState => ({...prevState, errorStatus:null})); break;
+        case 'weatherBit': this.setState(prevState => ({...prevState, errorStatus:null})); break;
+        case 'movies': this.setState(prevState => ({...prevState,errorMovies:null})); break;
+        default: break;
+      };
     }
 
     handlerFormUpdate = (e) => {
@@ -46,53 +58,85 @@ export default class Main extends React.Component {
 
     handlerSubmit = async(e) => {
       e.preventDefault();
-      try {
-        //fetch data from locationIQ
-        let requestData0 = {
-          url:`https://us1.locationiq.com/v1/search?key=${LIQKEY_TOKEN}&q=${this.state.searchQuery}&format=json`,
-          method:'GET'};
-        let responseLocation = await axios(requestData0);
+      if (this.state.previousSearchQuery !== this.state.searchQuery){
+        console.log('triggered')
+        try {
+          //fetch data from locationIQ
+          let requestData0 = {
+            url:`https://us1.locationiq.com/v1/search?key=${LIQKEY_TOKEN}&q=${this.state.searchQuery}&format=json`,
+            method:'GET'};
+          let responseLocation = await axios(requestData0);
 
-        //filter response to select the most 'important' response
-        let filteredResponseLocation = responseLocation.data.sort((a,b)=>b.importance-a.importance)[0]
-        let IconUrl = `https://maps.locationiq.com/v3/staticmap?key=${LIQKEY_TOKEN}&center=${filteredResponseLocation.lat},${filteredResponseLocation.lon}&size=600x600&zoom=12&path=fillcolor:%2390EE90|weight:2|color:blue|17.452945,78.380055|17.452765,78.382026|17.452020,78.381375|17.452045,78.380846|17.452945,78.380055`
+          //filter response to select the most 'important' response
+          let filteredResponseLocation = responseLocation.data.sort((a,b)=>b.importance-a.importance)[0]
+          let IconUrl = `https://maps.locationiq.com/v3/staticmap?key=${LIQKEY_TOKEN}&center=${filteredResponseLocation.lat},${filteredResponseLocation.lon}&size=600x600&zoom=12&path=fillcolor:%2390EE90|weight:2|color:blue|17.452945,78.380055|17.452765,78.382026|17.452020,78.381375|17.452045,78.380846|17.452945,78.380055`
 
-        // fetch weather data from my server
-        let cityName = filteredResponseLocation.display_name.split(",")[0].toLowerCase();
-        let requestData1 = {
-          url: `${SERVER}/weather?lat=${filteredResponseLocation.lat}&lon=${filteredResponseLocation.lon}&searchQuery=${cityName}`,
-          method:'GET'}
-        let responseDataWeather = await axios(requestData1);
+          // fetch weather data from my server
+          let cityName = filteredResponseLocation.display_name.split(",")[0].toLowerCase();
+  
+          if (cityName !==null || cityName !== undefined){
+            // for weather data
+            try {
+              let requestData1 = {
+                url: `${SERVER}/weather?lat=${filteredResponseLocation.lat}&lon=${filteredResponseLocation.lon}&searchQuery=${cityName}`,
+                method:'GET'}
+              let responseDataWeather = await axios(requestData1);
+              // for movie data
+              let requestData2 = {
+                url: `${SERVER}/movies?searchQuery=${cityName}`,
+                method:'GET'}
+              let responseDataMovies = await axios(requestData2);
+              //update state with most important city
+              this.setState(prevState=> ({...prevState,
+                responseWeather:responseDataWeather.data,
+                responseMovies:responseDataMovies.data
+                }));
+
+            } catch (error) {
+              this.setState(prevState => ({...prevState,
+                previousSearchQuery:'',
+                showResults:false,
+                responseLocation:{},
+                mapQuery:"",
+                showError:true,
+                responseWeather:[],
+                responseMovies:[],
+                errorStatus:error.response}));
+            }
+            }
 
 
-        //update state with most important city
-        this.setState(prevState=> ({...prevState,
-                      searchQuery:"",
-                      responseLocation:filteredResponseLocation ||{},
-                      showResults:true,
-                      mapQuery:IconUrl,
-                      showError:false,
-                      errorStatus:null,
-                      responseWeather:responseDataWeather.data || []
-                      }));
+          //update state with most important city
+          this.setState(prevState=> ({...prevState,
+                        previousSearchQuery:prevState.searchQuery,
+                        responseLocation:filteredResponseLocation,
+                        showResults:true,
+                        mapQuery:IconUrl,
+                        showError:false,
+                        errorStatus:null,
+                        }));
 
-      } catch (error) {
-        this.setState(prevState => ({...prevState,
-                                      showResults:false,
-                                      responseLocation:{},
-                                      mapQuery:"",
-                                      showError:true,
-                                      responseWeather:[],
-                                      errorStatus:error.response}));
-      };
+        } catch (error) {
+          this.setState(prevState => ({...prevState,
+                                        previousSearchQuery:'',
+                                        searchQuery:'',
+                                        showResults:false,
+                                        responseLocation:{},
+                                        mapQuery:"",
+                                        showError:true,
+                                        responseWeather:[],
+                                        errorStatus:error.response}));
+        };
+    };
     };
 
 
   render () {
-    console.log(this.state.errorStatus)
-    console.log(this.state.showError);
+    // console.log(this.state.errorStatus)
+    // console.log(this.state.showError);
     // console.log(this.state.responseWeather);
     // console.log(this.state.responseLocation);
+    // console.log(this.state.responseMovies);
     return (
         <div className="mainContainer">
           <Container>
@@ -110,15 +154,28 @@ export default class Main extends React.Component {
               <Col xs="11" sm="10" md="9" lg="8" className="mainColumn">
                 {this.state.showResults?
                   <>
-                    <Weather responseWeather={this.state.responseWeather}/>
+                    {this.state.errorWeather?
+                      <Error
+                        errorStatus={this.state.errorWeather.status} 
+                        handlerClearError={()=>this.handlerClearError('weatherBit')}
+                      />:
+                      <Weather responseWeather={this.state.responseWeather}/>}
+
                     <Map responseLocation={this.state.responseLocation}/>
+
+                    {this.state.errorMovies?
+                      <Error
+                        errorStatus={this.state.errorMovies.status} 
+                        handlerClearError={()=>this.handlerClearError('movies')}
+                      />:
+                      <Movies responseMovies={this.state.responseMovies} />}
                   </>:
                   null
                 }
-                {this.state.showError?
+                {this.state.errorLocationIQ?
                   <Error 
-                    errorStatus={this.state.errorStatus} 
-                    handlerClearError={this.handlerClearError}
+                    errorStatus={this.state.errorLocationIQ.status} 
+                    handlerClearError={()=>this.handlerClearError('locationIQ')}
                     />:
                     null}                        
               </Col>

@@ -24,6 +24,7 @@ export default class Weather extends React.Component {
               </Col>});
     return(
       <div className='weatherContainer'>
+        <h1 className="sectionHeader">Weather Forecast:</h1>
         <Container>
           <Row className="mainRow">
               {WeatherCardArray}

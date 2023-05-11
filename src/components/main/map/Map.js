@@ -8,6 +8,7 @@ export default class Map extends React.Component {
   render () {
     return (
         <div className="mapContainer">
+          <h1 className="sectionHeader">City Map:</h1>
           <Card 
             // sx={{width: {sx: 1.0,sm: 250, md: 350,},}}
             style={{width: {sx: 1.0,sm: 250, md: 350,},backgroundColor:'var(--green)', border:'3px solid var(--green)'}}>

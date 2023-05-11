@@ -1,3 +1,10 @@
 .weatherContainer {
   margin-bottom:0.5em;
 }
+
+.cardBody {
+  display:flex;
+  flex-direction:column;
+  flex-wrap:nowrap;
+  justify-content:space-evenly;
+}
