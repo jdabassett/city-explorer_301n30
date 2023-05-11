@@ -42,9 +42,9 @@ export default class Main extends React.Component {
     handlerClearError = (type) => {
       console.log('clear error handler');
       switch(type){
-        case 'location': this.setState(prevState => ({...prevState, errorLocationIQ:null})); break;
-        case 'weather': this.setState(prevState => ({...prevState, errorWeather:null})); break;
-        case 'movies': this.setState(prevState => ({...prevState,errorMovies:null})); break;
+        case 'location': this.setState(prevState => ({...prevState, errorLocationIQ:null,showResults:true})); break;
+        case 'weather': this.setState(prevState => ({...prevState, errorWeather:null,showResults:true})); break;
+        case 'movies': this.setState(prevState => ({...prevState,errorMovies:null,showResults:true})); break;
         default: break;
       };
     }
@@ -147,6 +147,8 @@ export default class Main extends React.Component {
                                         lat:null,
                                         lon:null,
                                         responseLocationIQ:{},
+                                        responseWeather:[],
+                                        responseMovies:[],
                                         errorLocationIQ:error.response}));
         };
     };
