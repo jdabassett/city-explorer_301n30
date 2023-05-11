@@ -2,6 +2,7 @@ import React from 'react';
 import MovieCard from './movieCard/MovieCard.js';
 import Accordion from 'react-bootstrap/Accordion';
 import './Movies.css';
+import Error from '../error/Error.js'
 
 
 
@@ -31,10 +32,16 @@ export default class Movies extends React.Component {
     return(
       <div className="accordionContainer">
         <h1 className="sectionHeader">Featured In:</h1>
-        <Accordion 
-          activeKey={this.state.activeKey}>
-          {MovieCardArray}
-        </Accordion>
+        {this.props.error?
+          <Error
+            error={this.props.error}
+            errorHandler={this.props.errorHandler}
+          />:
+          <Accordion 
+            activeKey={this.state.activeKey}>
+            {MovieCardArray}
+          </Accordion>
+        }
       </div>
     )
   }

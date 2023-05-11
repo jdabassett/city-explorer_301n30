@@ -4,6 +4,7 @@ import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import WeatherCard from './weatherCard/WeatherCard.js';
+import Error from '../error/Error.js'
 
 
 
@@ -25,11 +26,19 @@ export default class Weather extends React.Component {
     return(
       <div className='weatherContainer'>
         <h1 className="sectionHeader">Weather Forecast:</h1>
-        <Container>
-          <Row className="mainRow">
-              {WeatherCardArray}
-          </Row>
-        </Container>
+        {this.props.error?
+
+          <Error
+            error={this.props.error}
+            errorHandler={this.props.errorHandler}
+          />:
+
+          <Container>
+            <Row className="mainRow">
+                {WeatherCardArray}
+            </Row>
+          </Container>
+        }
       </div>
     )
   }
