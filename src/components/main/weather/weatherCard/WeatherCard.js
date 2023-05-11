@@ -1,15 +1,20 @@
 import React from 'react';
 import './WeatherCard.css';
 import Card from 'react-bootstrap/Card';
+import rainyImage from './images/rainy-image_daoudi-aissa.png';
+import cloudyImage from './images/cloudy-image_jerome.png';
+import sunnyImage from './images/sunny-image_max-saeling.png';
+import partlyImage from './images/partly-cloudy-image_sean-oulashin.png';
+
 
 
 export default class WeatherCard extends React.Component {
   imagePath = (description) => {
     switch (true){
-      case (description.includes('rain')): return "./images/rainy-image_daoudi-aissa.png";
-      case (description.includes('sun')): return "./images/sunny-image_max-saeling.png";
-      case (description.includes('cloud')): return "./images/cloudy-image_jerome.png";
-      default: return "./images/partly-cloudy-image_sean-oulashin.png";
+      case (description.includes('rain')): return rainyImage;
+      case (description.includes('sun')): return sunnyImage;
+      case (description.includes('cloud')): return cloudyImage;
+      default: return partlyImage;
     }
   }
 
