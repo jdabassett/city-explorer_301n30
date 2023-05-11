@@ -1,16 +1,37 @@
-{
-  "data": [
-      {
-          "name": "2021-03-23",
-          "description": "Low of 5, high of 9.8 with broken clouds"
-      },
-      {
-          "name": "2021-03-24",
-          "description": "Low of 4.7, high of 8.6 with sun"
-      },
-      {
-          "name": "2021-03-25",
-          "description": "Low of 5.2, high of 9.7 with light rain"
-      }
-  ]
-}
+[
+  {
+    "name": "Tue, May 9",
+    "description_C": "Low of 10°C, \n                      high of 21°C\n                      with scattered clouds",
+    "description_F": "Low of 50°F,\n                      high of 69°F\n                      with scattered clouds"
+  },
+  {
+    "name": "Wed, May 10",
+    "description_C": "Low of 11°C, \n                      high of 23°C\n                      with broken clouds",
+    "description_F": "Low of 52°F,\n                      high of 73°F\n                      with broken clouds"
+  },
+  {
+    "name": "Thu, May 11",
+    "description_C": "Low of 14°C, \n                      high of 25°C\n                      with scattered clouds",
+    "description_F": "Low of 57°F,\n                      high of 78°F\n                      with scattered clouds"
+  },
+  {
+    "name": "Fri, May 12",
+    "description_C": "Low of 15°C, \n                      high of 27°C\n                      with few clouds",
+    "description_F": "Low of 59°F,\n                      high of 80°F\n                      with few clouds"
+  },
+  {
+    "name": "Sat, May 13",
+    "description_C": "Low of 17°C, \n                      high of 29°C\n                      with few clouds",
+    "description_F": "Low of 63°F,\n                      high of 85°F\n                      with few clouds"
+  },
+  {
+    "name": "Sun, May 14",
+    "description_C": "Low of 15°C, \n                      high of 27°C\n                      with few clouds",
+    "description_F": "Low of 59°F,\n                      high of 81°F\n                      with few clouds"
+  },
+  {
+    "name": "Mon, May 15",
+    "description_C": "Low of 14°C, \n                      high of 27°C\n                      with scattered clouds",
+    "description_F": "Low of 58°F,\n                      high of 81°F\n                      with scattered clouds"
+  }
+]

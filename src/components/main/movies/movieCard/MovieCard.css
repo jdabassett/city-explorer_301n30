@@ -1,0 +1,24 @@
+.accordionItem {
+  outline:3px solid var(--blue);
+}
+
+.accordionBody {
+  background-color:var(--blue);
+}
+
+.accordionImageContainer {
+  display:flex;
+  flex-direction:row;
+  flex-wrap:nowrap;
+  justify-content:center;
+}
+
+.accordionImage {
+  outline:3px solid black;
+  width:200px;
+}
+
+.accordionText {
+  text-align:center;
+}
+

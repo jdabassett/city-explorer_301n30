@@ -16,3 +16,8 @@
 .appContainer {
   position:relative;
 }
+
+.sectionHeader {
+  text-align:center;
+  font-size:2em;
+}

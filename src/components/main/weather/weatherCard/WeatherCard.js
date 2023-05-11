@@ -18,9 +18,11 @@ export default class WeatherCard extends React.Component {
       <div className='weatherContainer'>
           <Card style={{width: '10rem', height:'20rem',backgroundColor:'var(--pink)', border:'3px solid var(--pink)'}}>
             <Card.Img variant="top" src={this.imagePath(this.props.description)} />
-            <Card.Body>
-              <Card.Title>Date: {this.props.name}</Card.Title>
-              <Card.Text>{this.props.description}</Card.Text>
+            <Card.Body className='cardBody'>
+              <Card.Title style={{fontSize:'0.8em',fontWeight:'bold',marginTop:'1em'}}>Date: {this.props.name}</Card.Title>
+              <Card.Text style={{fontSize:'0.8em',marginTop:'1em'}}>
+                <i style={{fontStyle:'normal', fontWeight:'bold'}}>Forecast:</i> {this.props.description}
+                </Card.Text>
             </Card.Body>
           </Card>
       </div>
