@@ -25,8 +25,6 @@ export default class Main extends React.Component {
         previousSearchQuery:'',
         mapQuery:'',
         searchQuery:'',
-        lat:null,
-        lon:null,
 
         showResults:false,
         responseLocationIQ:{},
@@ -42,9 +40,18 @@ export default class Main extends React.Component {
     handlerClearError = (type) => {
       console.log('clear error handler');
       switch(type){
-        case 'location': this.setState(prevState => ({...prevState, errorLocationIQ:null,showResults:true})); break;
-        case 'weather': this.setState(prevState => ({...prevState, errorWeather:null,showResults:true})); break;
-        case 'movies': this.setState(prevState => ({...prevState,errorMovies:null,showResults:true})); break;
+        case 'location': this.setState(prevState => ({...prevState,           
+                errorLocationIQ:null,
+                showResults:true})); 
+                break;
+        case 'weather': this.setState(prevState => ({...prevState, 
+                errorWeather:null,
+                showResults:true})); 
+                break;
+        case 'movies': this.setState(prevState => ({...prevState,
+                errorMovies:null,
+                showResults:true})); 
+                break;
         default: break;
       };
     }
@@ -68,6 +75,7 @@ export default class Main extends React.Component {
 
           this.setState(prevState=> ({...prevState,
             responseWeather:responseDataWeather.data,
+            errorWeather:null
             }));
 
         } catch (error) {
@@ -131,8 +139,6 @@ export default class Main extends React.Component {
                         previousSearchQuery:prevState.searchQuery,
                         mapQuery:IconUrl,
                         searchQuery:cityName,
-                        lat:lat,
-                        lon:lon,
                         showResults:true,
                         responseLocation:filteredResponseLocation,
                         errorLocationIQ:null,
@@ -144,8 +150,6 @@ export default class Main extends React.Component {
                                         mapQuery:"",
                                         searchQuery:'',
                                         showResults:true,
-                                        lat:null,
-                                        lon:null,
                                         responseLocationIQ:{},
                                         responseWeather:[],
                                         responseMovies:[],
@@ -166,7 +170,6 @@ export default class Main extends React.Component {
                   searchQuery={this.state.searchQuery}
                   handlerFormUpdate={this.handlerFormUpdate}
                   handlerSubmit={this.handlerSubmit}
-                  displayCelsius={this.displayCelsius}
                   />              
               </Col>
             </Row>
