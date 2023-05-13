@@ -66,96 +66,155 @@ export default class Main extends React.Component {
 
     // for weather data
     weatherRequest = async(lat,lon) => {
-        // console.log('request weather');
-        try {
-          let requestWeather = {
-            url: `${SERVER}/weather?lat=${lat}&lon=${lon}`,
-            method:'GET'}
-          let responseDataWeather = await axios(requestWeather);
+        // try {
+        //   let requestWeather = {
+        //     url: `${SERVER}/weather?lat=${lat}&lon=${lon}`,
+        //     method:'GET'}
+        //   let responseDataWeather = await axios(requestWeather);
 
-          this.setState(prevState=> ({...prevState,
-            responseWeather:responseDataWeather.data,
-            errorWeather:null
-            }));
+        //   this.setState(prevState=> ({...prevState,
+        //     responseWeather:responseDataWeather.data,
+        //     errorWeather:null
+        //     }));
 
-        } catch (error) {
-          this.setState(prevState => ({...prevState,
+        // } catch (error) {
+        //   this.setState(prevState => ({...prevState,
+        //     responseWeather:[],
+        //     errorWeather:error.response,
+        //   }));
+        // }
+        let requestWeather = {
+          url: `${SERVER}/weather?lat=${lat}&lon=${lon}`,
+          method:'GET'}
+        axios(requestWeather)
+          .then(res => this.setState(prevState => ({
+            ...prevState,
+            responseWeather:res.data,
+            errorWeather:null})))
+          .catch(error=> this.setState(prevState => ({
+            ...prevState,
             responseWeather:[],
-            errorWeather:error.response,
-          }));
-        }
+            errorWeather:error.response})))
     }
     
     // for movie data
-    moviesRequest = async (cityName) => {
+    moviesRequest = (cityName) => {
         // console.log('request movies');
-        try {
-          let requestMovies = {
-            url: `${SERVER}/movies?searchQuery=${cityName}`,
-            method:'GET'}
-          let responseDataMovies = await axios(requestMovies);
-          //update state with most important city
-          this.setState(prevState=> ({...prevState,
-            responseMovies:responseDataMovies.data,
-            errorMovies:null
-            }));
+        // try {
+        //   let requestMovies = {
+        //     url: `${SERVER}/movies?searchQuery=${cityName}`,
+        //     method:'GET'}
+        //   let responseDataMovies = await axios(requestMovies);
+        //   //update state with most important city
+        //   this.setState(prevState=> ({...prevState,
+        //     responseMovies:responseDataMovies.data,
+        //     errorMovies:null
+        //     }));
 
-        } catch (error) {
-          this.setState(prevState => ({...prevState,
-            responseMovies:[],
-            errorMovies:error.response
-          }));
-        }
+        // } catch (error) {
+        //   this.setState(prevState => ({...prevState,
+        //     responseMovies:[],
+        //     errorMovies:error.response
+        //   }));
+        // }
+      let requestMovies = {
+        url: `${SERVER}/movies?searchQuery=${cityName}`,
+        method:'GET'}
+      axios(requestMovies)
+        .then(res => this.setState(prevState => ({
+          ...prevState,
+          responseMovies:res.data,
+          errorMovies:null})))
+        .catch(error => this.setState(prevState => ({
+          ...prevState,
+          responseMovies:[],
+          errorMovies:error.response})))
     }
 
     handlerSubmit = async(e) => {
-      // console.log('request location')
-      e.preventDefault();
-      if (this.state.previousSearchQuery !== this.state.searchQuery){
-        // console.log('triggered')
-        try {
-          //fetch data from locationIQ
-          let requestData0 = {
-            url:`https://us1.locationiq.com/v1/search?key=${LIQKEY_TOKEN}&q=${this.state.searchQuery}&format=json`,
-            method:'GET'};
-          let responseLocation = await axios(requestData0);
 
-          //filter response to select the most 'important' response
-          let filteredResponseLocation = responseLocation.data.sort((a,b)=>b.importance-a.importance)[0];
+      e.preventDefault();
+
+    //   if (this.state.previousSearchQuery !== this.state.searchQuery){
+    //     try {
+    //       //fetch data from locationIQ
+    //       let requestData0 = {
+    //         url:`https://us1.locationiq.com/v1/search?key=${LIQKEY_TOKEN}&q=${this.state.searchQuery}&format=json`,
+    //         method:'GET'};
+    //       let responseLocation = await axios(requestData0);
+
+    //       //filter response to select the most 'important' response
+    //       let filteredResponseLocation = responseLocation.data.sort((a,b)=>b.importance-a.importance)[0];
         
 
-          let IconUrl = `https://maps.locationiq.com/v3/staticmap?key=${LIQKEY_TOKEN}&center=${filteredResponseLocation.lat},${filteredResponseLocation.lon}&size=600x600&zoom=12&path=fillcolor:%2390EE90|weight:2|color:blue|17.452945,78.380055|17.452765,78.382026|17.452020,78.381375|17.452045,78.380846|17.452945,78.380055`;
+    //       let IconUrl = `https://maps.locationiq.com/v3/staticmap?key=${LIQKEY_TOKEN}&center=${filteredResponseLocation.lat},${filteredResponseLocation.lon}&size=600x600&zoom=12&path=fillcolor:%2390EE90|weight:2|color:blue|17.452945,78.380055|17.452765,78.382026|17.452020,78.381375|17.452045,78.380846|17.452945,78.380055`;
 
-          // fetch data from my server
-          let cityName = filteredResponseLocation.display_name.split(",")[0].toLowerCase();
-          let lat = filteredResponseLocation.lat;
-          let lon = filteredResponseLocation.lon;
+    //       // fetch data from my server
+    //       let cityName = filteredResponseLocation.display_name.split(",")[0].toLowerCase();
+    //       let lat = filteredResponseLocation.lat;
+    //       let lon = filteredResponseLocation.lon;
 
-          this.weatherRequest(lat,lon);
-          this.moviesRequest(cityName);
+    //       this.weatherRequest(lat,lon);
+    //       this.moviesRequest(cityName);
 
-          //update state with most important city
-          this.setState(prevState=> ({...prevState,
-                        previousSearchQuery:prevState.searchQuery,
-                        mapQuery:IconUrl,
-                        searchQuery:cityName,
-                        showResults:true,
-                        responseLocation:filteredResponseLocation,
-                        errorLocationIQ:null,
-                        }));
+    //       //update state with most important city
+    //       this.setState(prevState=> ({...prevState,
+    //                     previousSearchQuery:prevState.searchQuery,
+    //                     mapQuery:IconUrl,
+    //                     searchQuery:cityName,
+    //                     showResults:true,
+    //                     responseLocation:filteredResponseLocation,
+    //                     errorLocationIQ:null,
+    //                     }));
 
-        } catch (error) {
-          this.setState(prevState => ({...prevState,
-                                        previousSearchQuery:'',
-                                        mapQuery:"",
-                                        searchQuery:'',
-                                        showResults:true,
-                                        responseLocationIQ:{},
-                                        responseWeather:[],
-                                        responseMovies:[],
-                                        errorLocationIQ:error.response}));
-        };
-    };
+    //     } catch (error) {
+    //       this.setState(prevState => ({...prevState,
+    //                                     previousSearchQuery:'',
+    //                                     mapQuery:"",
+    //                                     searchQuery:'',
+    //                                     showResults:true,
+    //                                     responseLocationIQ:{},
+    //                                     responseWeather:[],
+    //                                     responseMovies:[],
+    //                                     errorLocationIQ:error.response}));
+    //     };
+    // };
+        let requestLocation = {
+          url:`https://us1.locationiq.com/v1/search?key=${LIQKEY_TOKEN}&q=${this.state.searchQuery}&format=json`,
+          method:'GET'};
+        
+        axios(requestLocation)
+          .then(res => res.data.sort((a,b)=> b.importance-a.importance)[0])
+          .then(filteredObject => { 
+                this.setState(prevState=> ({...prevState,
+                          previousSearchQuery:prevState.searchQuery,
+                          mapQuery:`https://maps.locationiq.com/v3/staticmap?key=${LIQKEY_TOKEN}&center=${filteredObject.lat},${filteredObject.lon}&size=600x600&zoom=12&path=fillcolor:%2390EE90|weight:2|color:blue|17.452945,78.380055|17.452765,78.382026|17.452020,78.381375|17.452045,78.380846|17.452945,78.380055`,
+                          searchQuery:filteredObject.display_name.split(",")[0],
+                          showResults:true,
+                          responseLocation:filteredObject,
+                          errorLocationIQ:null,}));
+
+                let cityName = filteredObject.display_name.split(",")[0].toLowerCase();
+                let lat = filteredObject.lat;
+                let lon = filteredObject.lon;
+                this.weatherRequest(lat,lon);
+                this.moviesRequest(cityName);          
+          })
+          .catch(error => this.setState((prevState) => ({
+              ...prevState,
+              previousSearchQuery:'',
+              mapQuery:"",
+              searchQuery:'',
+              showResults:true,
+              responseLocationIQ:{},
+              responseWeather:[],
+              responseMovies:[],
+              errorLocationIQ:error.response
+          })))
+        
+
+
+
     };
 
 
