@@ -17,6 +17,10 @@ This website will allow users to search for US cities and receive a map icon of 
  * This wireframe is a plan how the REST requests will work between the locationIQ API and our frontend app.
  * Made with Lacey
 
+ ![Lab09 Wireframe](./public/images/lab09_wireframe.png)
+ * This wireframe is a plan how the REST requests will work between the our front-end, locationIQ, and our server.
+ * Made with Zeegii
+
 ## Change Log
 
 <!-- Use this area to document the iterative changes made to your application as each feature is successfully implemented. Use time stamps. Here's an example:
@@ -27,6 +31,9 @@ This website will allow users to search for US cities and receive a map icon of 
 
 [Lacey Washington](https://github.com/laceywash31700)
  * Made the wireframe with me for Lab06
+
+[Zeegii Ulziibaatar](https://github.com/ZG79)
+* Made the wireframe with me for Lab09
 
 ![Sunny](./public/images/sunny-image_max-saeling.png)
 Photo by <a href="https://unsplash.com/es/@maxsaeling?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Max Saeling</a> 
