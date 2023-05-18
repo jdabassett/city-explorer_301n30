@@ -20,7 +20,7 @@ export default class WeatherCard extends React.Component {
 
   render () {
     return(
-      <div className='weatherContainer'>
+      <div className='weatherCardContainers'>
           <Card style={{width: '10rem', height:'20rem',backgroundColor:'var(--pink)', border:'3px solid var(--pink)'}}>
             <Card.Img variant="top" src={this.imagePath(this.props.description)} />
             <Card.Body className='cardBody'>

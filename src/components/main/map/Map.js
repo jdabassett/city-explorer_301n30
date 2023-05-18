@@ -2,6 +2,7 @@
 import React from 'react'
 import Card from 'react-bootstrap/Card';
 import Error from '../error/Error.js';
+import './Map.css'
 
 
 const ACCESS_TOKEN = process.env.REACT_APP_LIQKEY;

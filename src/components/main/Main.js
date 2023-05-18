@@ -8,10 +8,12 @@ import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Weather from './weather/Weather.js';
 import Movies from './movies/Movies.js';
+import BusinessesCarousel from './businessCarousel/BusinessesCarousel.js';
 
 // import moviesData from '../../data_movies.json';
 // import weatherData from '../../data_weather.json';
 // import locationData from '../../data_location.json';
+// import businessesData from '../../data_businesses.json';
 
 
 //import global variables
@@ -27,13 +29,15 @@ export default class Main extends React.Component {
         searchQuery:'',
 
         showResults:false,
-        responseLocationIQ:{},
+        responseLocation:{},
         responseWeather:[],
         responseMovies:[],
+        responseBusinesses:[],
 
-        errorLocationIQ:null,
+        errorLocation:null,
         errorWeather:null,
-        errorMovies:null
+        errorMovies:null,
+        errorBusinesses:null
       };
     };
 
@@ -41,7 +45,7 @@ export default class Main extends React.Component {
       console.log('clear error handler');
       switch(type){
         case 'location': this.setState(prevState => ({...prevState,           
-                errorLocationIQ:null,
+                errorLocation:null,
                 showResults:true})); 
                 break;
         case 'weather': this.setState(prevState => ({...prevState, 
@@ -50,6 +54,10 @@ export default class Main extends React.Component {
                 break;
         case 'movies': this.setState(prevState => ({...prevState,
                 errorMovies:null,
+                showResults:true})); 
+                break;
+        case 'businesses': this.setState(prevState => ({...prevState,
+                errorBusinesses:null,
                 showResults:true})); 
                 break;
         default: break;
@@ -66,7 +74,6 @@ export default class Main extends React.Component {
 
     // for weather data
     weatherRequest = async(lat,lon) => {
-
         let requestWeather = {
           url: `${SERVER}/weather?lat=${lat}&lon=${lon}`,
           method:'GET'}
@@ -83,7 +90,6 @@ export default class Main extends React.Component {
     
     // for movie data
     moviesRequest = (cityName) => {
-
       let requestMovies = {
         url: `${SERVER}/movies?searchQuery=${cityName}`,
         method:'GET'}
@@ -97,6 +103,22 @@ export default class Main extends React.Component {
           responseMovies:[],
           errorMovies:error.response})))
     }
+
+    // for weather data
+    businessesRequest = async(cityName) => {
+      let requestBusinesses = {
+        url: `${SERVER}/businesses?searchQuery=${cityName}`,
+        method:'GET'}
+      axios(requestBusinesses)
+        .then(res => this.setState(prevState => ({
+          ...prevState,
+          responseBusinesses:res.data,
+          errorBusinesses:null})))
+        .catch(error=> this.setState(prevState => ({
+          ...prevState,
+          responseBusinesses:[],
+          errorBusinesses:error.response})))
+  }
 
     handlerSubmit = async(e) => {
 
@@ -114,13 +136,14 @@ export default class Main extends React.Component {
                           searchQuery:filteredObject.display_name.split(",")[0],
                           showResults:true,
                           responseLocation:filteredObject,
-                          errorLocationIQ:null,}));
+                          errorLocation:null,}));
 
                 let cityName = filteredObject.display_name.split(",")[0].toLowerCase();
                 let lat = filteredObject.lat;
                 let lon = filteredObject.lon;
                 this.weatherRequest(lat,lon);
-                this.moviesRequest(cityName);          
+                this.moviesRequest(cityName);  
+                this.businessesRequest(cityName);        
           })
           .catch(error => this.setState((prevState) => ({
               ...prevState,
@@ -131,7 +154,7 @@ export default class Main extends React.Component {
               responseLocationIQ:{},
               responseWeather:[],
               responseMovies:[],
-              errorLocationIQ:error.response
+              errorLocation:error.response
           })))
         
 
@@ -141,7 +164,7 @@ export default class Main extends React.Component {
 
 
   render () {
-    // console.log(this.state.responseLocation);
+    // console.log(this.state.responseBusinesses);
     return (
         <div className="mainContainer">
           <Container>
@@ -167,7 +190,12 @@ export default class Main extends React.Component {
                       error={this.state.errorLocationIQ}
                       errorHandler={()=>this.handlerClearError('location')}
                       responseLocation={this.state.responseLocation}/>
-                    
+
+                    <BusinessesCarousel
+                      error={this.state.errorBusinesses}
+                      errorHandler={()=>this.handlerClearError('businesses')}
+                      responseBusinesses={this.state.responseBusinesses} /> 
+
                     <Movies 
                       error={this.state.errorMovies}
                       errorHandler={()=>this.handlerClearError('movies')}
