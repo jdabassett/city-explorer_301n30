@@ -31,9 +31,6 @@ export default class BusinessesCarousel extends React.Component {
                   </Carousel.Caption>
                 </Carousel.Item>
       
-      // <BusinessCard 
-      //           key={idx} 
-      //           item={item}/>
               });
     // console.log(this.props.responseBusinesses);
     return(
