@@ -1,0 +1,21 @@
+.carouselContainer{
+  /* outline:2px solid red; */
+  margin:2em 0 2em 0;
+}
+
+.carouselItem {
+  border:3px solid var(--green-red);
+}
+
+p {
+  color:black;
+}
+
+.carouselCaption {
+  background-color:rgba(250,250,250,0.5);
+}
+
+
+.carouselTitle {
+  color:black !important;
+}
